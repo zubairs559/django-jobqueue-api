@@ -7,6 +7,7 @@ from .job_worker import add_job, job_results
 from .serializers import JobCreateSerializer  # ✅ serializer
 from drf_yasg.utils import swagger_auto_schema  # ✅ important
 from drf_yasg import openapi
+from .job_queue import get_job_status
 
 
 class JobCreateView(APIView):
