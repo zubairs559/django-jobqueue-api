@@ -1,194 +1,206 @@
-📚 Django Job Queue API
+# 📚 Django Job Queue API
+
+![Python](https://img.shields.io/badge/Python-3.12-blue)
+![Django](https://img.shields.io/badge/Django-5.x-green)
+![License](https://img.shields.io/badge/License-MIT-brightgreen)
+![Status](https://img.shields.io/badge/Status-Completed-blue)
 
 A Django-based REST API project that implements:
 
-CRUD operations on a Book model
+* CRUD operations on a `Book` model
+* JWT authentication with role-based access
+* A thread-based job queue with graceful shutdown
+* Swagger UI for testing
 
-JWT authentication with role-based access
+---
 
-A thread-based job queue with graceful shutdown
+## 📑 Table of Contents
 
-Swagger UI for testing
+* [Tech Stack](#-tech-stack)
+* [Features Implemented](#-features-implemented)
+* [Setup Instructions](#-setup-instructions)
+* [Authentication (JWT)](#-authentication-jwt)
+* [Book API Endpoints](#-book-api-endpoints-protected)
+* [Job Queue API](#-job-queue-api)
+* [Swagger UI Testing](#-test-with-swagger-ui)
+* [Limitations](#-not-included)
+* [Author](#-author)
+* [Conclusion](#-conclusion)
 
-🚀 Tech Stack
+---
 
-Python 3.12
+## 🚀 Tech Stack
 
-Django 5.x
+* Python 3.12
+* Django 5.x
+* Django REST Framework
+* SimpleJWT for token authentication
+* Threading (built-in Python module)
+* SQLite (default Django DB)
 
-Django REST Framework
+---
 
-SimpleJWT for token authentication
+## ✅ Features Implemented
 
-Threading (built-in Python module)
+### 1. CRUD API (Book)
 
-SQLite (default Django DB)
+* Endpoints to Create, Read, Update, Delete books
+* JSON request/response handling
 
-✅ Features Implemented
+### 2. JWT Authentication
 
-1. CRUD API (Book)
+* Register, Login, Logout APIs
+* Access + Refresh token support
+* Role-based access for endpoints
 
-Endpoints to Create, Read, Update, Delete books
+### 3. Concurrency: Job Queue
 
-JSON request/response handling
+* Tasks added to a job queue
+* Executed via worker threads
+* Graceful shutdown support
 
-2. JWT Authentication
+### 4. Swagger UI
 
-Register, Login, Logout APIs
+* Auto-generated API documentation
+* JWT token-based testing directly from browser
 
-Access + Refresh token support
+---
 
-Role-based access for endpoints
+## 📦 Setup Instructions
 
-3. Concurrency: Job Queue
+### 1. Clone the Repo
 
-Tasks added to a job queue
-
-Executed via worker threads
-
-Graceful shutdown support
-
-4. Swagger UI
-
-Auto-generated API documentation
-
-JWT token-based testing directly from browser
-
-📦 Setup Instructions
-
-1. Clone the Repo
-
+```bash
 git clone git@github.com:zubairs559/django-jobqueue-api.git
 cd django-jobqueue-api
+```
 
-2. Create & Activate Virtual Env
+### 2. Create & Activate Virtual Env
 
+```bash
 python -m venv venv
 venv\Scripts\activate  # On Windows
+```
 
-3. Install Dependencies
+### 3. Install Dependencies
 
+```bash
 pip install -r requirements.txt
+```
 
-4. Run Migrations
+### 4. Run Migrations
 
+```bash
 python manage.py migrate
+```
 
-5. Start the Server
+### 5. Start the Server
 
+```bash
 python manage.py runserver
+```
 
-🔑 Authentication (JWT)
+---
 
-Register:
+## 🔑 Authentication (JWT)
 
-POST /api/auth/register/
+### Register:
 
+`POST /api/auth/register/`
+
+```json
 {
   "username": "zubair",
   "password": "zubair",
   "email": "zubair@example.com"
 }
+```
 
-Login:
+### Login:
 
-POST /api/auth/login/ Returns access + refresh tokens.
+`POST /api/auth/login/`
 
-Use the access token for Swagger authorization:
+Returns access + refresh tokens. Use the `access` token for Swagger authorization:
 
+```
 Bearer <access_token>
+```
 
-📘 Book API Endpoints (Protected)
+---
 
-Method
+## 📘 Book API Endpoints (Protected)
 
-Endpoint
+| Method | Endpoint           | Description       |
+| ------ | ------------------ | ----------------- |
+| GET    | `/api/books/`      | List all books    |
+| POST   | `/api/books/`      | Create a new book |
+| GET    | `/api/books/<id>/` | Get a single book |
+| PUT    | `/api/books/<id>/` | Update a book     |
+| DELETE | `/api/books/<id>/` | Delete a book     |
 
-Description
+---
 
-GET
+## ⚙️ Job Queue API
 
-/api/books/
+### Add Job:
 
-List all books
+`POST /api/jobs/`
 
-POST
-
-/api/books/
-
-Create a new book
-
-GET
-
-/api/books//
-
-Get a single book
-
-PUT
-
-/api/books//
-
-Update a book
-
-DELETE
-
-/api/books//
-
-Delete a book
-
-⚙️ Job Queue API
-
-Add Job:
-
-POST /api/jobs/
-
+```json
 {
   "task_type": "long_task"
 }
+```
 
-Get Job Status:
+### Get Job Status:
 
-GET /api/jobs/<job_id>/
+`GET /api/jobs/<job_id>/`
 
-Returns current job status: pending, in_progress, completed
+Returns current job status: `pending`, `in_progress`, `completed`
 
-🧪 Test with Swagger UI
+---
+
+## 🧪 Test with Swagger UI
 
 Visit:
 
+```
 http://localhost:8000/swagger/
+```
 
-Click Authorize button
+1. Click **Authorize** button
+2. Paste JWT token as:
 
-Paste JWT token as:
-
+```
 Bearer <your_access_token>
+```
 
-Use available endpoints directly
+3. Use available endpoints directly
 
-🚫 Not Included
+---
 
-Docker (skipped as per requirement)
+## 🚫 Not Included
 
-External DB (used SQLite)
+* Docker (skipped as per requirement)
+* External DB (used SQLite)
+* Deployment (local-only setup)
 
-Deployment (local-only setup)
+---
 
-🧑‍💻 Author
+## 🧑‍💻 Author
 
-Mohmmad ZubairGitHub: zubairs559
+**Mohmmad Zubair** &#x20;
+GitHub: [zubairs559](https://github.com/zubairs559)
 
-🏁 Conclusion
+---
+
+## 🏁 Conclusion
 
 This project covers core backend skills including:
 
-Django API development
-
-JWT authentication
-
-Role-based access control
-
-Concurrency and thread handling
+* Django API development
+* JWT authentication
+* Role-based access control
+* Concurrency and thread handling
 
 Perfect as a hands-on assignment or portfolio project. ✅
-
